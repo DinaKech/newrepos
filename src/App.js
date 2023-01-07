@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React, { useContext } from "react";
+import { Route, Router, Routes } from "react-router-dom";
+import Account from "./components/Account";
+import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Register from "./components/Register";
+import { UserContext } from "./context/AuthContext";
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Firebase & Router</h1>
+      <UserContext>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </UserContext>
     </div>
   );
 }
-
-export default App;
